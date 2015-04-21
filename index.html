@@ -38,10 +38,10 @@ Your browser does not support the HTML5 canvas tag, booooo.
 		width = document.getElementById('walterMaker').width =
 			(getParameter('width') ? getParameter('width') : (window.innerWidth)*2);
 		height = document.getElementById('walterMaker').height =
-			(getParameter('height') ? getParameter('height') : (Math.floor((window.innerHeight)/rowCount)*rowCount)*2);
+			(getParameter('height') ? getParameter('height') : (Math.floor((window.innerHeight-30)/rowCount)*rowCount)*2);
 
 		document.getElementById('walterMaker').style.width = (window.innerWidth) + "px";
-		document.getElementById('walterMaker').style.height = (Math.floor((window.innerHeight)/rowCount)*rowCount) + "px";
+		document.getElementById('walterMaker').style.height = (Math.floor((window.innerHeight-30)/rowCount)*rowCount) + "px";
 
 		rowHeight = height / rowCount;
 		rowLocation = 0;
