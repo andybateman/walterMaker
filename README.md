@@ -5,7 +5,7 @@ Open the [demo here](http://rawgit.com/andybateman/walterMaker/master/index.html
 
 ---
 
-- parameter (default value)
+##Parameters (default value)
 
 * rows (13)
 * fillColour (000)
