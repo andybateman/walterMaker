@@ -5,11 +5,11 @@ Open the [demo here](http://rawgit.com/andybateman/walterMaker/master/index.html
 
 ---
 
-rows (12)
-fillColour (000)
-bgColour (fff)
-width (fits to browser)
-height (fits to browser)
+* rows (12)
+* fillColour (000)
+* bgColour (fff)
+* width (fits to browser)
+* height (fits to browser)
 
 ---
 
