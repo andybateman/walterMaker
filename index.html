@@ -36,12 +36,12 @@ Your browser does not support the HTML5 canvas tag, booooo.
 		fillColour = "#" + (getParameter('fillColour') ? getParameter('fillColour') : "000");
 		bgColour = "#" + (getParameter('bgColour') ? getParameter('bgColour') : "fff");
 		width = document.getElementById('walterMaker').width =
-			(getParameter('width') ? getParameter('width') : (window.innerWidth-40)*2);
+			(getParameter('width') ? getParameter('width') : (window.innerWidth)*2);
 		height = document.getElementById('walterMaker').height =
-			(getParameter('height') ? getParameter('height') : (Math.floor((window.innerHeight-45)/rowCount)*rowCount)*2);
+			(getParameter('height') ? getParameter('height') : (Math.floor((window.innerHeight)/rowCount)*rowCount)*2);
 
-		document.getElementById('walterMaker').style.width = (window.innerWidth-60) + "px";
-		document.getElementById('walterMaker').style.height = (Math.floor((window.innerHeight-45)/rowCount)*rowCount) + "px";
+		document.getElementById('walterMaker').style.width = (window.innerWidth) + "px";
+		document.getElementById('walterMaker').style.height = (Math.floor((window.innerHeight)/rowCount)*rowCount) + "px";
 
 		rowHeight = height / rowCount;
 		rowLocation = 0;
