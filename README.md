@@ -5,7 +5,7 @@ Open the [demo here](http://rawgit.com/andybateman/walterMaker/master/index.html
 
 ---
 
-* rows (12)
+* rows (13)
 * fillColour (000)
 * bgColour (fff)
 * width (fits to browser)
