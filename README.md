@@ -5,6 +5,8 @@ Open the [demo here](http://rawgit.com/andybateman/walterMaker/master/index.html
 
 ---
 
+* parameter (default)
+
 * rows (13)
 * fillColour (000)
 * bgColour (fff)
