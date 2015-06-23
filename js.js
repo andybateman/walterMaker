@@ -1,14 +1,6 @@
-var wm = document.getElementById("walterMaker").getContext("2d");
-
-draw();
 
 document.getElementById("walterMaker").addEventListener("click", function(){draw();}, false);
-document.getElementById("download").addEventListener('click', function (e) {
-	var dataURL = document.getElementById("walterMaker").toDataURL('image/png');
-	document.getElementById("download").href = dataURL;
-});
-
-window.onresize = function() {draw();};
+draw();
 
 function draw() {
 	
@@ -20,6 +12,8 @@ function draw() {
 	height = document.getElementById('walterMaker').height =
 		(getParameter('height') ? getParameter('height') : (Math.floor((window.innerHeight)/rowCount)*rowCount)*2);
 
+	wm = document.getElementById("walterMaker").getContext("2d");
+	
 	document.getElementById('walterMaker').style.width = (window.innerWidth) + "px";
 	document.getElementById('walterMaker').style.height = (Math.floor((window.innerHeight)/rowCount)*rowCount) + "px";
 
@@ -48,6 +42,7 @@ function draw() {
 }
 
 function drawKoru(koruSize, koruPad, x, y, style, colour) {
+
 	koruWidth = 0;
 
 	switch (style) {
