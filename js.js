@@ -1,6 +1,6 @@
 
-document.getElementById("walterMaker").addEventListener("click", function(){draw();}, false);
 draw();
+document.getElementById("walterMaker").addEventListener("click", function(){draw();}, false);
 
 function draw() {
 	
@@ -14,8 +14,8 @@ function draw() {
 
 	wm = document.getElementById("walterMaker").getContext("2d");
 	
-	document.getElementById('walterMaker').style.width = (window.innerWidth) + "px";
-	document.getElementById('walterMaker').style.height = (Math.floor((window.innerHeight)/rowCount)*rowCount) + "px";
+	document.getElementById('walterMaker').style.width = width/2 + "px";
+	document.getElementById('walterMaker').style.height = (Math.floor((height)/rowCount)*rowCount)/2 + "px";
 
 	rowHeight = height / rowCount;
 	rowLocation = 0;
