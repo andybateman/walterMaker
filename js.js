@@ -1,4 +1,3 @@
-
 draw();
 document.getElementById("walterMaker").addEventListener("click", function(){draw();}, false);
 
