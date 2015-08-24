@@ -1,15 +1,15 @@
-### ToDo:
+# ToDo:
 
-# Functional
+## Functional
 
 - [x] Document current parameters
 
-# File Structure Tasks
+## File Structure Tasks
 
 - [x] Separate out css / js / html
 - [ ] IOS Icons
 
-# UI Tasks
+## UI Tasks
 
 - [ ] Add menu in order to easily make use of the parameters (see Functions Tasks)
   - [ ] Create a top menu
