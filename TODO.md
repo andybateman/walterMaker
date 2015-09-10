@@ -1,6 +1,6 @@
 # ToDo:
 
-## Functional
+## Functions Tasks
 
 - [x] Document current parameters
 
