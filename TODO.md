@@ -7,7 +7,7 @@
 ## File Structure Tasks
 
 - [x] Separate out css / js / html
-- [ ] IOS Icons
+- [x] IOS Icons
 
 ## UI Tasks
 

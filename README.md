@@ -5,13 +5,17 @@ Open the [demo here](https://raw.githack.com/andybateman/walterMaker/master/inde
 
 ---
 
-##Parameters (default value)
+## Parameters
 
-* rows (13)
-* fillColour (000)
-* bgColour (fff)
-* width (fits to browser)
-* height (fits to browser)
+Parameters are passed as URL query strings, e.g. `?rows=7&fillColour=c00&bgColour=fff`.
+
+| Parameter | Default | Description |
+|---|---|---|
+| `rows` | `13` | Number of rows. Odd numbers ensure the pattern starts and ends with the background colour. |
+| `fillColour` | `000` | Koru fill colour as a hex value without `#` (e.g. `c00` for red). |
+| `bgColour` | `fff` | Background colour as a hex value without `#`. |
+| `width` | browser width | Canvas width in pixels. Rendered at half size for retina displays. |
+| `height` | browser height | Canvas height in pixels, snapped to a row multiple. Rendered at half size. |
 
 ---
 
