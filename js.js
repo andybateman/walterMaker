@@ -15,12 +15,6 @@ document.getElementById("wm-menu").addEventListener("submit", function(e) {
 	applyConfig();
 }, false);
 document.getElementById("wm-save").addEventListener("click", saveImage, false);
-document.getElementById("wm-menu").addEventListener("contextmenu", function(e) {
-	e.stopPropagation();
-}, false);
-document.addEventListener("click", function(e) {
-	if (!document.getElementById("wm-menu").contains(e.target)) hideMenu();
-}, false);
 document.addEventListener("keydown", function(e) {
 	if (e.key === "Escape") hideMenu();
 }, false);
@@ -38,10 +32,20 @@ function showMenu(e) {
 	menu.style.left = Math.min(e.clientX, window.innerWidth - 220) + "px";
 	menu.style.top = Math.min(e.clientY, window.innerHeight - 170) + "px";
 	menu.style.display = "block";
+	setTimeout(function() {
+		document.addEventListener("click", dismissHandler, false);
+	}, 0);
+}
+
+function dismissHandler(e) {
+	if (!document.getElementById("wm-menu").contains(e.target)) {
+		hideMenu();
+	}
 }
 
 function hideMenu() {
 	document.getElementById("wm-menu").style.display = "none";
+	document.removeEventListener("click", dismissHandler, false);
 }
 
 function saveImage() {
