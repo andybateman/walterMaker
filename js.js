@@ -1,13 +1,70 @@
 var wm, fillColour, bgColour, rowHeight;
 
+var config = {
+	rows: parseInt(getParameter('rows')) || 13,
+	fillColour: '#' + expandHex(getParameter('fillColour') || '000000'),
+	bgColour: '#' + expandHex(getParameter('bgColour') || 'ffffff')
+};
+
 draw();
-document.getElementById("walterMaker").addEventListener("click", function(){draw();}, false);
+
+document.getElementById("walterMaker").addEventListener("click", draw, false);
+document.getElementById("walterMaker").addEventListener("contextmenu", showMenu, false);
+document.getElementById("wm-menu").addEventListener("submit", function(e) {
+	e.preventDefault();
+	applyConfig();
+}, false);
+document.getElementById("wm-save").addEventListener("click", saveImage, false);
+document.getElementById("wm-menu").addEventListener("contextmenu", function(e) {
+	e.stopPropagation();
+}, false);
+document.addEventListener("click", function(e) {
+	if (!document.getElementById("wm-menu").contains(e.target)) hideMenu();
+}, false);
+document.addEventListener("keydown", function(e) {
+	if (e.key === "Escape") hideMenu();
+}, false);
+
+function expandHex(h) {
+	return h.length === 3 ? h[0]+h[0]+h[1]+h[1]+h[2]+h[2] : h;
+}
+
+function showMenu(e) {
+	e.preventDefault();
+	var menu = document.getElementById("wm-menu");
+	document.getElementById("wm-rows").value = config.rows;
+	document.getElementById("wm-fill").value = config.fillColour;
+	document.getElementById("wm-bg").value = config.bgColour;
+	menu.style.left = Math.min(e.clientX, window.innerWidth - 220) + "px";
+	menu.style.top = Math.min(e.clientY, window.innerHeight - 170) + "px";
+	menu.style.display = "block";
+}
+
+function hideMenu() {
+	document.getElementById("wm-menu").style.display = "none";
+}
+
+function saveImage() {
+	var a = document.createElement("a");
+	a.download = "walterMaker.png";
+	a.href = document.getElementById("walterMaker").toDataURL("image/png");
+	a.click();
+	hideMenu();
+}
+
+function applyConfig() {
+	config.rows = parseInt(document.getElementById("wm-rows").value) || 13;
+	config.fillColour = document.getElementById("wm-fill").value;
+	config.bgColour = document.getElementById("wm-bg").value;
+	hideMenu();
+	draw();
+}
 
 function draw() {
+	var rowCount = config.rows;
+	fillColour = config.fillColour;
+	bgColour = config.bgColour;
 
-	var rowCount = (getParameter('rows') ? getParameter('rows') : 13);
-	fillColour = "#" + (getParameter('fillColour') ? getParameter('fillColour') : "000");
-	bgColour = "#" + (getParameter('bgColour') ? getParameter('bgColour') : "fff");
 	var width = document.getElementById('walterMaker').width =
 		(getParameter('width') ? getParameter('width') : (window.innerWidth)*2);
 	var height = document.getElementById('walterMaker').height =
@@ -25,10 +82,8 @@ function draw() {
 	var koruPad = rowHeight - koruSize;
 
 	for (var i = 0; i <= rowCount * 2; i++) {
-
 		wm.fillStyle = i%2===0 ? bgColour : fillColour;
 		wm.fillRect(0, rowLocation, width, rowLocation+(rowHeight/2));
-
 		rowLocation = rowLocation + (rowHeight/2);
 	}
 	rowLocation = 0;

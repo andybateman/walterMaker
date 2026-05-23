@@ -11,7 +11,7 @@
 
 ## UI Tasks
 
-- [ ] Add menu in order to easily make use of the parameters (see Functions Tasks)
-  - [ ] Create a top menu
+- [x] Add menu in order to easily make use of the parameters (see Functions Tasks)
+  - [x] Right-click context menu — rows, fill colour, background colour, save image
 - [x] Remove margins
 - [x] Change rows to an odd number so it always begins and ends with the background colour
