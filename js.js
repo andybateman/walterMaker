@@ -1,3 +1,4 @@
+var canvas = document.getElementById("walterMaker");
 var wm, fillColour, bgColour, rowHeight;
 var animInterval = null;
 var longPressTimer = null;
@@ -15,8 +16,6 @@ var config = {
 	fillColour: '#' + expandHex(getParameter('fillColour') || '000000'),
 	bgColour:   '#' + expandHex(getParameter('bgColour')   || 'ffffff')
 };
-
-var canvas = document.getElementById("walterMaker");
 
 draw();
 canvas.addEventListener("click", draw, false);
@@ -151,6 +150,7 @@ function saveImage() {
 }
 
 function draw() {
+	if (!canvas) canvas = document.getElementById("walterMaker");
 	var rowCount = config.rows;
 	fillColour = config.fillColour;
 	bgColour = config.bgColour;
