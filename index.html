@@ -17,10 +17,21 @@ Your browser does not support the HTML5 canvas tag, booooo.
 </canvas>
 
 <form id="wm-menu">
+	<label>Preset
+		<select id="wm-preset">
+			<option value="">—</option>
+			<option value="Classic">Classic</option>
+			<option value="Inverted">Inverted</option>
+			<option value="Red/Black">Red/Black</option>
+			<option value="Blue/Gold">Blue/Gold</option>
+			<option value="Forest">Forest</option>
+		</select>
+	</label>
 	<label>Rows <input type="number" id="wm-rows" min="1" max="99" value="13"></label>
 	<label>Fill <input type="color" id="wm-fill" value="#000000"></label>
 	<label>Background <input type="color" id="wm-bg" value="#ffffff"></label>
 	<button type="submit">Redraw</button>
+	<button type="button" id="wm-animate">Start animation</button>
 	<button type="button" id="wm-save">Save image</button>
 </form>
 

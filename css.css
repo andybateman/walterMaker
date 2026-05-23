@@ -21,6 +21,7 @@ canvas { display: block; margin: 0 auto; }
 	gap: 12px;
 }
 #wm-menu input[type="number"] { width: 60px; }
+#wm-menu select { flex: 1; }
 #wm-menu button {
 	width: 100%;
 	padding: 6px;

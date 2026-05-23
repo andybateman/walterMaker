@@ -8,7 +8,12 @@ Open the [demo here](https://raw.githack.com/andybateman/walterMaker/master/inde
 ## Usage
 
 - **Click** anywhere on the canvas to regenerate a new pattern.
-- **Right-click** the canvas to open the configuration menu — adjust rows, fill colour, and background colour, then hit Redraw. You can also save the current pattern as a PNG from the same menu.
+- **Right-click** (or long-press on touch devices) to open the configuration menu:
+  - Choose a colour **preset** or pick custom fill and background colours
+  - Set the number of **rows** (odd numbers look best — even values are nudged automatically)
+  - **Redraw** applies your settings and updates the URL so it's shareable
+  - **Start/stop animation** cycles through new patterns every 2 seconds
+  - **Save image** downloads the current canvas as a PNG
 
 ---
 

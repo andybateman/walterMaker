@@ -1,23 +1,61 @@
 var wm, fillColour, bgColour, rowHeight;
+var animInterval = null;
+var longPressTimer = null;
+var longPressActive = false;
+
+var presets = {
+	'Classic':   ['#000000', '#ffffff'],
+	'Inverted':  ['#ffffff', '#000000'],
+	'Red/Black': ['#cc0000', '#000000'],
+	'Blue/Gold': ['#1a4a8a', '#d4a017'],
+	'Forest':    ['#1b5e20', '#f5f5f5']
+};
 
 var config = {
-	rows: parseInt(getParameter('rows')) || 13,
+	rows:       enforceOdd(parseInt(getParameter('rows')) || 13),
 	fillColour: '#' + expandHex(getParameter('fillColour') || '000000'),
-	bgColour: '#' + expandHex(getParameter('bgColour') || 'ffffff')
+	bgColour:   '#' + expandHex(getParameter('bgColour')   || 'ffffff')
 };
 
 draw();
 
-document.getElementById("walterMaker").addEventListener("click", draw, false);
-document.getElementById("walterMaker").addEventListener("contextmenu", showMenu, false);
+var canvas = document.getElementById("walterMaker");
+canvas.addEventListener("click", draw, false);
+canvas.addEventListener("contextmenu", showMenu, false);
+canvas.addEventListener("touchstart", function(e) {
+	longPressActive = false;
+	var touch = e.touches[0];
+	longPressTimer = setTimeout(function() {
+		longPressActive = true;
+		showMenuAt(touch.clientX, touch.clientY);
+	}, 600);
+}, false);
+canvas.addEventListener("touchend", function(e) {
+	clearTimeout(longPressTimer);
+	if (longPressActive) {
+		e.preventDefault();
+		longPressActive = false;
+	}
+}, false);
+canvas.addEventListener("touchmove", function() {
+	clearTimeout(longPressTimer);
+	longPressActive = false;
+}, false);
+
 document.getElementById("wm-menu").addEventListener("submit", function(e) {
 	e.preventDefault();
 	applyConfig();
 }, false);
+document.getElementById("wm-preset").addEventListener("change", applyPreset, false);
+document.getElementById("wm-animate").addEventListener("click", toggleAnimation, false);
 document.getElementById("wm-save").addEventListener("click", saveImage, false);
 document.addEventListener("keydown", function(e) {
 	if (e.key === "Escape") hideMenu();
 }, false);
+
+function enforceOdd(n) {
+	return n % 2 === 0 ? n + 1 : n;
+}
 
 function expandHex(h) {
 	return h.length === 3 ? h[0]+h[0]+h[1]+h[1]+h[2]+h[2] : h;
@@ -25,15 +63,22 @@ function expandHex(h) {
 
 function showMenu(e) {
 	e.preventDefault();
+	showMenuAt(e.clientX, e.clientY);
+}
+
+function showMenuAt(x, y) {
 	var menu = document.getElementById("wm-menu");
 	document.getElementById("wm-rows").value = config.rows;
 	document.getElementById("wm-fill").value = config.fillColour;
 	document.getElementById("wm-bg").value = config.bgColour;
-	menu.style.left = Math.min(e.clientX, window.innerWidth - 220) + "px";
-	menu.style.top = Math.min(e.clientY, window.innerHeight - 170) + "px";
+	document.getElementById("wm-preset").value = "";
+	document.getElementById("wm-animate").textContent = animInterval ? "Stop animation" : "Start animation";
+	menu.style.left = Math.min(x, window.innerWidth - 220) + "px";
+	menu.style.top = Math.min(y, window.innerHeight - 270) + "px";
 	menu.style.display = "block";
 	setTimeout(function() {
 		document.addEventListener("click", dismissHandler, false);
+		document.addEventListener("touchstart", dismissHandler, false);
 	}, 0);
 }
 
@@ -46,22 +91,54 @@ function dismissHandler(e) {
 function hideMenu() {
 	document.getElementById("wm-menu").style.display = "none";
 	document.removeEventListener("click", dismissHandler, false);
+	document.removeEventListener("touchstart", dismissHandler, false);
+}
+
+function applyPreset() {
+	var key = document.getElementById("wm-preset").value;
+	if (!key || !presets[key]) return;
+	config.fillColour = presets[key][0];
+	config.bgColour = presets[key][1];
+	document.getElementById("wm-fill").value = config.fillColour;
+	document.getElementById("wm-bg").value = config.bgColour;
+	updateURL();
+	hideMenu();
+	draw();
+}
+
+function applyConfig() {
+	config.rows = enforceOdd(parseInt(document.getElementById("wm-rows").value) || 13);
+	config.fillColour = document.getElementById("wm-fill").value;
+	config.bgColour = document.getElementById("wm-bg").value;
+	updateURL();
+	hideMenu();
+	draw();
+}
+
+function updateURL() {
+	var params = new URLSearchParams(location.search);
+	params.set('rows', config.rows);
+	params.set('fillColour', config.fillColour.slice(1));
+	params.set('bgColour', config.bgColour.slice(1));
+	history.replaceState(null, '', '?' + params.toString());
+}
+
+function toggleAnimation() {
+	if (animInterval) {
+		clearInterval(animInterval);
+		animInterval = null;
+	} else {
+		animInterval = setInterval(draw, 2000);
+	}
+	hideMenu();
 }
 
 function saveImage() {
 	var a = document.createElement("a");
 	a.download = "walterMaker.png";
-	a.href = document.getElementById("walterMaker").toDataURL("image/png");
+	a.href = canvas.toDataURL("image/png");
 	a.click();
 	hideMenu();
-}
-
-function applyConfig() {
-	config.rows = parseInt(document.getElementById("wm-rows").value) || 13;
-	config.fillColour = document.getElementById("wm-fill").value;
-	config.bgColour = document.getElementById("wm-bg").value;
-	hideMenu();
-	draw();
 }
 
 function draw() {
@@ -69,15 +146,15 @@ function draw() {
 	fillColour = config.fillColour;
 	bgColour = config.bgColour;
 
-	var width = document.getElementById('walterMaker').width =
+	var width = canvas.width =
 		(getParameter('width') ? getParameter('width') : (window.innerWidth)*2);
-	var height = document.getElementById('walterMaker').height =
+	var height = canvas.height =
 		(getParameter('height') ? getParameter('height') : (Math.floor((window.innerHeight)/rowCount)*rowCount)*2);
 
-	wm = document.getElementById("walterMaker").getContext("2d");
+	wm = canvas.getContext("2d");
 
-	document.getElementById('walterMaker').style.width = width/2 + "px";
-	document.getElementById('walterMaker').style.height = (Math.floor((height)/rowCount)*rowCount)/2 + "px";
+	canvas.style.width = width/2 + "px";
+	canvas.style.height = (Math.floor((height)/rowCount)*rowCount)/2 + "px";
 
 	rowHeight = height / rowCount;
 	var rowLocation = 0;
