@@ -2,7 +2,6 @@ var wm, fillColour, bgColour, rowHeight;
 var animInterval = null;
 var longPressTimer = null;
 var longPressActive = false;
-
 var presets = {
 	'Classic':   ['#000000', '#ffffff'],
 	'Inverted':  ['#ffffff', '#000000'],
@@ -17,9 +16,9 @@ var config = {
 	bgColour:   '#' + expandHex(getParameter('bgColour')   || 'ffffff')
 };
 
-draw();
-
 var canvas = document.getElementById("walterMaker");
+
+draw();
 canvas.addEventListener("click", draw, false);
 canvas.addEventListener("contextmenu", showMenu, false);
 canvas.addEventListener("touchstart", function(e) {
@@ -49,6 +48,7 @@ document.getElementById("wm-menu").addEventListener("submit", function(e) {
 document.getElementById("wm-preset").addEventListener("change", applyPreset, false);
 document.getElementById("wm-animate").addEventListener("click", toggleAnimation, false);
 document.getElementById("wm-save").addEventListener("click", saveImage, false);
+document.getElementById("wm-share").addEventListener("click", copyLink, false);
 document.addEventListener("keydown", function(e) {
 	if (e.key === "Escape") hideMenu();
 }, false);
@@ -131,6 +131,15 @@ function toggleAnimation() {
 		animInterval = setInterval(draw, 2000);
 	}
 	hideMenu();
+}
+
+function copyLink() {
+	updateURL();
+	navigator.clipboard.writeText(location.href).then(function() {
+		var btn = document.getElementById("wm-share");
+		btn.textContent = "Copied!";
+		setTimeout(function() { btn.textContent = "Copy link"; }, 2000);
+	});
 }
 
 function saveImage() {
