@@ -5,9 +5,16 @@ Open the [demo here](https://raw.githack.com/andybateman/walterMaker/master/inde
 
 ---
 
-## Parameters
+## Usage
 
-Parameters are passed as URL query strings, e.g. `?rows=7&fillColour=c00&bgColour=fff`.
+- **Click** anywhere on the canvas to regenerate a new pattern.
+- **Right-click** the canvas to open the configuration menu — adjust rows, fill colour, and background colour, then hit Redraw. You can also save the current pattern as a PNG from the same menu.
+
+---
+
+## URL Parameters
+
+Parameters can also be set via URL query string, e.g. `?rows=7&fillColour=c00&bgColour=fff`.
 
 | Parameter | Default | Description |
 |---|---|---|
