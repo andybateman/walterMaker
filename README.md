@@ -11,7 +11,8 @@ Open the [demo here](https://raw.githack.com/andybateman/walterMaker/master/inde
 - **Right-click** (or long-press on touch devices) to open the configuration menu:
   - Choose a colour **preset** or pick custom fill and background colours
   - Set the number of **rows** (odd numbers look best — even values are nudged automatically)
-  - **Redraw** applies your settings and updates the URL so it's shareable
+  - **Redraw** applies your settings
+  - **Copy link** updates the URL with current settings and copies it to the clipboard
   - **Start/stop animation** cycles through new patterns every 2 seconds
   - **Save image** downloads the current canvas as a PNG
 
